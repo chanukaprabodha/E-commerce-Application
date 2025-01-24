@@ -6,8 +6,8 @@ package lk.ijse.Entity;
  * Time: 09:27 AM
  * Description:
  */
-public class Categories {
-    String categoryId;
-    String name;
-    String description;
+public class Category {
+    private String categoryId;
+    private String name;
+    private String description;
 }
