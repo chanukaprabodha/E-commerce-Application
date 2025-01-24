@@ -8,7 +8,7 @@
             <div class="col-md-4">
                 <h5>Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li><a href="../index.jsp" class="text-white">Home</a></li>
+                    <li><a href="index.jsp" class="text-white">Home</a></li>
                     <li><a href="contact.jsp" class="text-white">Contact</a></li>
                     <li><a href="terms.jsp" class="text-white">Terms & Conditions</a></li>
                 </ul>

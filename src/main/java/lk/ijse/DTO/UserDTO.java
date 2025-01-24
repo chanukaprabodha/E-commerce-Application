@@ -1,5 +1,9 @@
 package lk.ijse.DTO;
+
 import lk.ijse.Entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Author: Chanuka Prabodha
@@ -7,12 +11,17 @@ import lk.ijse.Entity.User;
  * Time: 10:09 PM
  * Description:
  */
-public class User {
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+
+public class UserDTO {
 
     private String userID;
     private String userName;
     private String password;
     private String email;
-    private lk.ijse.Entity.User.Role role;
+    private User.Role role;
     private boolean active;
 }
