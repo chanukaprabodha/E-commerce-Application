@@ -20,8 +20,10 @@ public class UserDTO {
 
     private String userID;
     private String userName;
-    private String password;
     private String email;
-    private User.Role role;
     private boolean active;
+
+    public boolean isActive() {
+        return active;
+    }
 }

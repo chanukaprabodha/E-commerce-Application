@@ -18,7 +18,7 @@
         <a href="" class="box">Product Management</a>
         <a href="category" class="box">Category Management</a>
         <a href="" class="box">Order Management</a>
-        <a href="" class="box">User Management</a>
+        <a href="user" class="box">User Management</a>
     </div>
 </div>
 </body>
