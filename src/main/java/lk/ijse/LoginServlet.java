@@ -93,21 +93,25 @@ public class LoginServlet extends HttpServlet {
         String userName = req.getParameter("un");
         String password = req.getParameter("pw");
 
-        // Check if the user exists
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement pstm = connection.prepareStatement("SELECT username,role FROM users WHERE username = ? AND password = ?");
+            PreparedStatement pstm = connection.prepareStatement("SELECT username, role, active FROM users WHERE username = ? AND password = ?");
             pstm.setString(1, userName);
             pstm.setString(2, password);
             ResultSet resultSet = pstm.executeQuery();
             if (resultSet.next()) {
-                String role = resultSet.getString("role");
-                String name = resultSet.getString("username");
-                req.getSession().setAttribute("userName", name);
-                if ("admin".equals(role)) {
-                    resp.sendRedirect("admin-panel.jsp");
+                boolean isActive = resultSet.getBoolean("active");
+                if (!isActive) {
+                    resp.sendRedirect("login.jsp?error=Your account was suspended");
                 } else {
-                    resp.sendRedirect("index.jsp");
+                    String role = resultSet.getString("role");
+                    String name = resultSet.getString("username");
+                    req.getSession().setAttribute("userName", name);
+                    if ("admin".equals(role)) {
+                        resp.sendRedirect("admin-panel.jsp");
+                    } else {
+                        resp.sendRedirect("index.jsp");
+                    }
                 }
             } else {
                 resp.sendRedirect("login.jsp?error=Invalid Credentials");
