@@ -10,6 +10,7 @@ import lk.ijse.DTO.CategoryDTO;
 
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -29,7 +30,37 @@ public class CategoryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        listCategories(req, resp);
+        String action = req.getParameter("action");
+        if (action != null && action.equals("search")) {
+            performSearch(req, resp);
+        } else {
+            listCategories(req, resp);
+        }
+    }
+
+    private void performSearch(HttpServletRequest req, HttpServletResponse resp) {
+        // Search for categories
+        ArrayList<CategoryDTO> categoryList = new ArrayList<>();
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstm = connection.prepareStatement("SELECT * FROM categories WHERE name LIKE ?");
+            pstm.setString(1, "%" + req.getParameter("query") + "%");
+            var resultSet = pstm.executeQuery();
+            while (resultSet.next()) {
+                categoryList.add(new CategoryDTO(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3)
+                ));
+            }
+            req.setAttribute("categories", categoryList);
+            req.getRequestDispatcher("category.jsp").forward(req, resp);
+            pstm.close();
+            connection.close();
+        } catch (SQLException | ServletException | IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -49,7 +80,16 @@ public class CategoryServlet extends HttpServlet {
             case "delete":
                 deleteCategory(req, resp);
                 break;
+            case "search":
+                searchCategories(req, resp);
+                break;
         }
+    }
+
+    private void searchCategories(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // Search for categories
+        String query = req.getParameter("query");
+        resp.sendRedirect("category?action=search&query=" + URLEncoder.encode(query, "UTF-8"));
     }
 
     private void listCategories(HttpServletRequest req, HttpServletResponse resp) throws IOException {

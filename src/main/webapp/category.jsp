@@ -10,73 +10,7 @@
 <html>
 <head>
     <title>Category</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        form {
-            margin-bottom: 20px;
-        }
-
-        input[type="text"], input[type="search"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #218838;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f8f9fa;
-        }
-    </style>
+    <link rel="stylesheet" href="css/admin-category.css">
 </head>
 <body>
 <div class="container">
@@ -108,7 +42,11 @@
         <textarea name="description" placeholder="Category Description" required></textarea>
         <button type="submit">Add Category</button>
     </form>
-    <input type="search" id="search" placeholder="Search Categories">
+    <form action="category" method="post">
+        <input type="hidden" name="action" value="search">
+        <input type="search" name="query" id="search" placeholder="Search Categories" required>
+        <button type="submit">Search</button>
+    </form>
 
     <%
         List<CategoryDTO> categories = (List<CategoryDTO>) request.getAttribute("categories");
