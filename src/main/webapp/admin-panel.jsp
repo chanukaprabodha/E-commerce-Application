@@ -15,10 +15,10 @@
 <div class="admin-panel">
     <h1>Admin Panel</h1>
     <div class="grid-options">
-        <a href="product-management.html" class="box">Product Management</a>
-        <a href="category-management.html" class="box">Category Management</a>
-        <a href="order-management.html" class="box">Order Management</a>
-        <a href="user-management.html" class="box">User Management</a>
+        <a href="" class="box">Product Management</a>
+        <a href="category" class="box">Category Management</a>
+        <a href="" class="box">Order Management</a>
+        <a href="" class="box">User Management</a>
     </div>
 </div>
 </body>
