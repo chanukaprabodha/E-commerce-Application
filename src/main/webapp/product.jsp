@@ -57,11 +57,28 @@
     .form-group.image input[type="file"] {
       margin-top: 10px;
     }
+    .back-button {
+      position: absolute;
+      top: 35px;
+      right: 150px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .back-button:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
 <div class="container">
   <h1>Product Management</h1>
+  <a href="admin-panel.jsp" class="back-button">Admin Panel</a>
   <%
     String message = request.getParameter("message");
     String error = request.getParameter("error");

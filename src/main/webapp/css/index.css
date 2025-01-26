@@ -16,13 +16,15 @@ header {
 .carousel-item img {
     width: 100%;
     height: 100vh;
-    object-fit: cover;
+    object-fit: fill;
     background: no-repeat center center scroll;
 }
 
 .carousel-caption {
+    width: 40rem;
+    height: 100px;
     position: absolute;
-    top: 55%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
@@ -30,13 +32,18 @@ header {
     font-size: 3rem;
     font-weight: bold;
 }
+.navbar-nav{
+    margin-left: 20rem;
+    margin-right: auto;
+}
 
-.navbar-nav .nav-link {
+.navbar-nav .nav-link{
     color: white !important;
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: normal;
     transition: color 0.3s ease;
     margin-left: 0.5rem;
+    letter-spacing: 2px;
 }
 
 h2 {

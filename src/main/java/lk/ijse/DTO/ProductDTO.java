@@ -21,4 +21,12 @@ public class ProductDTO {
     private double price;
     private String imageUrl;
     private String categoryId;
+
+    public ProductDTO(String productId, String name, String description, double price, String imageUrl) {
+        this.productId = productId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.imageUrl = imageUrl;
+    }
 }

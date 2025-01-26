@@ -66,7 +66,7 @@ public class CategoryServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        if (action == null) action = "list";// Default action
+        if (action == null) action = "list";
 
         System.out.println(action);
 
@@ -118,7 +118,6 @@ public class CategoryServlet extends HttpServlet {
 
     private void deleteCategory(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String id = req.getParameter("categoryId");
-        System.out.println(id);
         // Delete the category from the database
         try {
             Connection connection = dataSource.getConnection();
@@ -142,7 +141,6 @@ public class CategoryServlet extends HttpServlet {
         String id = req.getParameter("id");
         String name = req.getParameter("name");
         String description = req.getParameter("description");
-        System.out.println(id + " " + name + " " + description);
 
         // Update the category in the database
         try {

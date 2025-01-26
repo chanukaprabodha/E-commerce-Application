@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -50,15 +51,14 @@ public class LoginServlet extends HttpServlet {
         String email = req.getParameter("email");
         String role = req.getParameter("role");
 
-        System.out.println("id = " + id + ", userName = " + userName + ", password = " + password + ", email = " + email + ", role = " + role);
+        String hashpw = BCrypt.hashpw(password, BCrypt.gensalt());
 
-        // Save the user to the database
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement pstm = connection.prepareStatement("INSERT INTO users VALUES (?,?,?,?,?,?)");
             pstm.setString(1, id);
             pstm.setString(2, userName);
-            pstm.setString(3, password);
+            pstm.setString(3, hashpw);
             pstm.setString(4, email);
             pstm.setString(5, role);
             pstm.setBoolean(6, true);
@@ -93,20 +93,25 @@ public class LoginServlet extends HttpServlet {
         String userName = req.getParameter("un");
         String password = req.getParameter("pw");
 
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement pstm = connection.prepareStatement("SELECT username, role, active FROM users WHERE username = ? AND password = ?");
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement pstm = connection.prepareStatement("SELECT username, password, role, active FROM users WHERE username = ?");
             pstm.setString(1, userName);
-            pstm.setString(2, password);
             ResultSet resultSet = pstm.executeQuery();
+
             if (resultSet.next()) {
+                String hashedPassword = resultSet.getString("password");
+                boolean isPasswordMatch = BCrypt.checkpw(password, hashedPassword); // Compare hashed password
                 boolean isActive = resultSet.getBoolean("active");
-                if (!isActive) {
+
+                if (!isPasswordMatch) {
+                    resp.sendRedirect("login.jsp?error=Invalid Credentials");
+                } else if (!isActive) {
                     resp.sendRedirect("login.jsp?error=Your account was suspended");
                 } else {
                     String role = resultSet.getString("role");
                     String name = resultSet.getString("username");
                     req.getSession().setAttribute("userName", name);
+
                     if ("admin".equals(role)) {
                         resp.sendRedirect("admin-panel.jsp");
                     } else {
@@ -116,9 +121,6 @@ public class LoginServlet extends HttpServlet {
             } else {
                 resp.sendRedirect("login.jsp?error=Invalid Credentials");
             }
-            resultSet.close();
-            pstm.close();
-            connection.close();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
             try {

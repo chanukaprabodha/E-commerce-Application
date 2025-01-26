@@ -20,15 +20,30 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="product-list.jsp">Shop</a>
+                        <a class="nav-link" href="index.jsp">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cart.jsp">Cart</a>
+                        <a class="nav-link" href="shopAll">Shop All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="categories.jsp">Categories</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.jsp">Contact</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.jsp">
+                            <i class="bi bi-search"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.jsp">
+                            <i class="bi bi-cart"></i>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="login.jsp">

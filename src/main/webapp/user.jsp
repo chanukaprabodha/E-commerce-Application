@@ -11,10 +11,29 @@
 <head>
     <title>User Management</title>
     <link rel="stylesheet" href="css/admin-category.css">
+    <style>
+        .back-button {
+            position: absolute;
+            top: 35px;
+            right: 150px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
     <h1>User Management</h1>
+    <a href="admin-panel.jsp" class="back-button">Admin Panel</a>
     <%
         String message = request.getParameter("message");
         String error = request.getParameter("error");
@@ -63,7 +82,7 @@
             </td>
             <td><%= user.getEmail() %>
             </td>
-            <td><%= user.isActive() ? "Active" : "Inactive" %>
+            <td><%= user.getRole() %>
             </td>
             <td>
                 <form action="user" method="post" style="display:inline;">

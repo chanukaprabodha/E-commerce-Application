@@ -1,6 +1,6 @@
 package lk.ijse.DTO;
 
-import lk.ijse.Entity.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +21,7 @@ public class UserDTO {
     private String userID;
     private String userName;
     private String email;
+    private String Role;
     private boolean active;
 
     public boolean isActive() {

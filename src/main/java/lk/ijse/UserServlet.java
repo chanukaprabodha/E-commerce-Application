@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.DTO.UserDTO;
-import lk.ijse.Entity.User;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -25,6 +24,7 @@ import java.util.List;
  * Time: 07:58 PM
  * Description:
  */
+
 @WebServlet(name = "UserServlet", urlPatterns = "/user")
 public class UserServlet extends HttpServlet {
 
@@ -47,7 +47,7 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
 
-        if (action == null) action = "list"; // Default action
+        if (action == null) action = "list";
 
         switch (action) {
             case "activate":
@@ -73,6 +73,7 @@ public class UserServlet extends HttpServlet {
                         resultSet.getString("user_id"),
                         resultSet.getString("username"),
                         resultSet.getString("email"),
+                        resultSet.getString("role"),
                         resultSet.getBoolean("active")
                 ));
             }
@@ -145,6 +146,7 @@ public class UserServlet extends HttpServlet {
                         resultSet.getString("user_id"),
                         resultSet.getString("username"),
                         resultSet.getString("email"),
+                        resultSet.getString("role"),
                         resultSet.getBoolean("active")
                 ));
             }

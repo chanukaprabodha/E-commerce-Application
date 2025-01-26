@@ -20,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Chanuka Prabodha
@@ -39,6 +40,8 @@ public class ProductServlet extends HttpServlet {
         String action = req.getParameter("action");
         if (action != null && action.equals("search")) {
             performSearch(req, resp);
+        } else if (action != null && action.equals("listFeatured")) {
+            listFeaturedProducts(req, resp);
         } else {
             listProducts(req, resp);
         }
@@ -96,6 +99,9 @@ public class ProductServlet extends HttpServlet {
                 break;
             case "search":
                 searchProducts(req, resp);
+                break;
+            case "listFeatured":
+                listFeaturedProducts(req, resp);
                 break;
         }
     }
@@ -264,5 +270,29 @@ public class ProductServlet extends HttpServlet {
         String filePath = uploadPath + File.separator + fileName;
         imagePart.write(filePath);
         return "uploads/" + fileName;
+    }
+
+    private void listFeaturedProducts(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<ProductDTO> productList = new ArrayList<>();
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstm = connection.prepareStatement("SELECT * FROM products");
+            ResultSet resultSet = pstm.executeQuery();
+            while (resultSet.next()) {
+                productList.add(new ProductDTO(
+                        resultSet.getString("product_id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description"),
+                        resultSet.getDouble("price"),
+                        resultSet.getString("image_url")
+                ));
+            }
+            req.setAttribute("featuredProducts", productList);
+            pstm.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 }

@@ -1,9 +1,9 @@
-<footer class="bg-dark text-white mt-4">
+<footer class="bg-dark text-white">
     <div class="container py-4">
         <div class="row">
             <div class="col-md-4">
                 <h5>About Us</h5>
-                <p>SimplyTek is your go-to destination for the latest tech gadgets and accessories.</p>
+                <p>TechSphere is your go-to destination for the latest tech gadgets and accessories.</p>
             </div>
             <div class="col-md-4">
                 <h5>Quick Links</h5>
