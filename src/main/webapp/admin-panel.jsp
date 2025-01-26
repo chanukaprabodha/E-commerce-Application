@@ -17,7 +17,7 @@
     <div class="grid-options">
         <a href="product" class="box">Product Management</a>
         <a href="admin-category" class="box">Category Management</a>
-        <a href="" class="box">Order Management</a>
+        <a href="order" class="box">Order Management</a>
         <a href="user" class="box">User Management</a>
     </div>
 </div>
